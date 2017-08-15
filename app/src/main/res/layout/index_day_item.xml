@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:background="@android:color/white"
-    android:paddingLeft="10dp"
-    android:paddingRight="10dp"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
     android:paddingTop="10dp"
     android:paddingBottom="10dp"
     android:layout_width="match_parent"
@@ -22,7 +22,7 @@
         android:text="今日"
         android:textSize="14sp"
         android:textColor="#333333"
-        android:layout_marginLeft="10dp"
+        android:layout_marginLeft="16dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toEndOf="@+id/imageView" />
@@ -31,7 +31,7 @@
         android:text="阵雨 | 优"
         android:textSize="12sp"
         android:textColor="#666666"
-        android:layout_marginLeft="10dp"
+        android:layout_marginLeft="16dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
@@ -39,7 +39,7 @@
         app:layout_constraintStart_toEndOf="@+id/imageView" />
     <TextView
         android:id="@+id/tv_temp"
-        android:text="30° / 40°"
+        android:text="0° / 0°"
         android:textColor="#666666"
         android:textSize="18sp"
         android:layout_width="wrap_content"

@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -27,6 +28,7 @@ public class IndexAdapter extends RecyclerView.Adapter {
 
     private Context mContext;
     private List<Weather.HeWeather5Bean> heWeather5;
+    private String[] days = {"今天","明天","后天"};
 
     public IndexAdapter(Context context, List<Weather.HeWeather5Bean> heWeather5) {
         this.mContext = context;
@@ -50,17 +52,36 @@ public class IndexAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        if (heWeather5.isEmpty()){return;}
         if (position == 0) {
-
+            MyHeadHolder headHolder = (MyHeadHolder) holder;
+            Weather.HeWeather5Bean.NowBean nowBean = heWeather5.get(0).getNow();
+            Weather.HeWeather5Bean.AqiBean aqiBean = heWeather5.get(0).getAqi();
+            headHolder.tvNowTemp.setText(nowBean.getTmp());
+            headHolder.tvNowSky.setText(nowBean.getCond().getTxt());
+            headHolder.tvNowQuality.setText(aqiBean.getCity().getQlty());
+            headHolder.tvNowWind.setText(String.format("%s\n%s",nowBean.getWind().getDir(),nowBean.getWind().getSc()));
+            headHolder.tvNowHumidity.setText(String.format("相对湿度\n%s",nowBean.getHum()));
+            headHolder.tvNowFeel.setText(String.format("体感温度\n%s°",nowBean.getFl()));
         } else if (position == 1) {
             MyDayHolder dayHolder = (MyDayHolder) holder;
-
+            List<Weather.HeWeather5Bean.DailyForecastBean> dailyForecastBeanList = heWeather5.get(0).getDaily_forecast();
             ConstraintLayout constraintLayout;
-            for (int i = 0;i<3;i++){
+            int i = 0;
+            for (Weather.HeWeather5Bean.DailyForecastBean bean : dailyForecastBeanList){
                 constraintLayout = (ConstraintLayout) LayoutInflater.from(mContext).inflate(R.layout.index_day_item, null);
                 ViewGroup viewGroup = (ViewGroup) constraintLayout.getParent();
                 if (viewGroup!=null){viewGroup.removeAllViews();}
+                ImageView imageView = ButterKnife.findById(constraintLayout,R.id.imageView);
+                TextView day = ButterKnife.findById(constraintLayout,R.id.tv_day);
+                TextView simpleInfo = ButterKnife.findById(constraintLayout,R.id.tv_simple_info);
+                TextView temp = ButterKnife.findById(constraintLayout,R.id.tv_temp);
+                day.setText(days[i]);
+                simpleInfo.setText(String.format("%s",bean.getCond().getTxt_d()));
+                temp.setText(String.format("%s° / %s°",bean.getTmp().getMax(),bean.getTmp().getMin()));
+                imageView.setImageResource(R.drawable.ic_cloud);
                 dayHolder.lMain.addView(constraintLayout);
+                i++;
             }
 
         } else if (position == 2) {

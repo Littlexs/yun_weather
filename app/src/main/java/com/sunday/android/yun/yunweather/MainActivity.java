@@ -28,6 +28,8 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 /*
@@ -50,8 +52,9 @@ public class MainActivity extends BaseActivity {
     private LinearLayoutManager layoutManager;
     private Weather weather;
     private List<Weather.HeWeather5Bean> weather5BeanList = new ArrayList<>();
+    private String NET_OK = "ok";
 
-    private int w,colorAccent,colorTrans;
+    private int w, colorAccent, colorTrans;
 
     @Override
     public int getLayoutId() {
@@ -68,34 +71,41 @@ public class MainActivity extends BaseActivity {
     @Override
     public void initViews(Bundle savedInstanceState) {
         RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) relativeLayout.getLayoutParams();
-        layoutParams.setMargins(0,StatusBarUtil.getStatusBarHeight(getApplicationContext()),0,0);
+        layoutParams.setMargins(0, StatusBarUtil.getStatusBarHeight(getApplicationContext()), 0, 0);
         relativeLayout.setBackgroundColor(colorAccent);
-        layoutManager = new LinearLayoutManager(mContext,LinearLayoutManager.VERTICAL,false);
+        layoutManager = new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
-        indexAdapter = new IndexAdapter(getApplicationContext(),weather5BeanList);
+        indexAdapter = new IndexAdapter(getApplicationContext(), weather5BeanList);
         recyclerView.setAdapter(indexAdapter);
         recyclerView.addOnScrollListener(onScrollListener);
+        refreshLayout.setOnRefreshListener(()->loadData());
     }
 
     public void loadData() {
-        ApiClient.create().getMainInfo("杭州",ApiClient.APP_KEY)
+        ApiClient.create().getMainInfo("杭州", ApiClient.APP_KEY)
+                .doOnSubscribe((disposable)->refreshLayout.setRefreshing(true))
                 .compose(RxUtils.schedulerTransformer(Schedulers.io()))
-                .subscribe(weather1 -> {
-                    weather = weather1;
-                    showData();
-                },throwable -> {
-                    ToastUtils.showToast(getApplicationContext(),"网络异常");
-                });
+                .subscribe(weather1 -> showData(weather1),
+                        throwable -> {
+                            ToastUtils.showToast(getApplicationContext(), "网络异常");
+                            refreshLayout.setRefreshing(false);
+                        });
     }
 
-    @Override
-    public void showData() {
-        ToastUtils.showToast(getApplicationContext(),"获取成功");
+    public void showData(Weather weather) {
+        this.weather = weather;
+        refreshLayout.setRefreshing(false);
+        weather5BeanList.clear();
+        weather5BeanList.addAll(weather.getHeWeather5());
+        if (weather5BeanList.get(0).getStatus().equals(NET_OK)) {
+            indexAdapter.notifyDataSetChanged();
+        } else
+            ToastUtils.showToast(getApplicationContext(), "获取失败，请重新加载");
     }
 
     @OnClick(R.id.img_more)
     public void onViewClicked() {
-        ToastUtils.showToast(getApplicationContext(),"more");
+        ToastUtils.showToast(getApplicationContext(), "more");
     }
 
     private int y = 0;
@@ -104,11 +114,11 @@ public class MainActivity extends BaseActivity {
         @Override
         public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
             super.onScrolled(recyclerView, dx, dy);
-            y+=dy;
-            if (y> w-110){
-                StatusBarUtil.setColor(MainActivity.this,colorAccent,0);
+            y += dy;
+            if (y > w - 110) {
+                StatusBarUtil.setColor(MainActivity.this, colorAccent, 0);
                 relativeLayout.setBackgroundColor(colorAccent);
-            }else {
+            } else {
                 transStatus();
                 relativeLayout.setBackgroundColor(colorTrans);
             }
