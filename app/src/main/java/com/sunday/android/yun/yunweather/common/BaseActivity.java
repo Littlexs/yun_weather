@@ -45,6 +45,7 @@ public abstract class BaseActivity extends RxAppCompatActivity {
         beforeInitView();
         initToolBar();
         initViews(savedInstanceState);
+        loadData();
     }
 
     public void transStatus(){

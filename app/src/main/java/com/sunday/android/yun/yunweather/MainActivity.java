@@ -2,6 +2,7 @@ package com.sunday.android.yun.yunweather;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,6 +16,8 @@ import android.widget.TextView;
 import com.sunday.android.yun.yunweather.adapter.IndexAdapter;
 import com.sunday.android.yun.yunweather.common.BaseActivity;
 import com.sunday.android.yun.yunweather.entity.Weather;
+import com.sunday.android.yun.yunweather.http.ApiClient;
+import com.sunday.android.yun.yunweather.http.RxUtils;
 import com.sunday.android.yun.yunweather.utils.DeviceUtils;
 import com.sunday.android.yun.yunweather.utils.StatusBarUtil;
 import com.sunday.android.yun.yunweather.utils.ToastUtils;
@@ -25,6 +28,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.reactivex.schedulers.Schedulers;
 
 /*
 * 首页
@@ -71,6 +75,22 @@ public class MainActivity extends BaseActivity {
         indexAdapter = new IndexAdapter(getApplicationContext(),weather5BeanList);
         recyclerView.setAdapter(indexAdapter);
         recyclerView.addOnScrollListener(onScrollListener);
+    }
+
+    public void loadData() {
+        ApiClient.create().getMainInfo("杭州",ApiClient.APP_KEY)
+                .compose(RxUtils.schedulerTransformer(Schedulers.io()))
+                .subscribe(weather1 -> {
+                    weather = weather1;
+                    showData();
+                },throwable -> {
+                    ToastUtils.showToast(getApplicationContext(),"网络异常");
+                });
+    }
+
+    @Override
+    public void showData() {
+        ToastUtils.showToast(getApplicationContext(),"获取成功");
     }
 
     @OnClick(R.id.img_more)
