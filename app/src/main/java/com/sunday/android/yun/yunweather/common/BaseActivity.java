@@ -37,6 +37,17 @@ public abstract class BaseActivity extends RxAppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getLayoutId());
+        transStatus();
+        bind = ButterKnife.bind(this);
+        mContext = this;
+        MobclickAgent.openActivityDurationTrack(false);
+        activities.add(this);
+        beforeInitView();
+        initToolBar();
+        initViews(savedInstanceState);
+    }
+
+    public void transStatus(){
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             Window window = getWindow();
             // Translucent status bar
@@ -44,12 +55,6 @@ public abstract class BaseActivity extends RxAppCompatActivity {
                     WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,
                     WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         }
-        bind = ButterKnife.bind(this);
-        mContext = this;
-        MobclickAgent.openActivityDurationTrack(false);
-        activities.add(this);
-        initToolBar();
-        initViews(savedInstanceState);
     }
 
     /**
@@ -58,6 +63,11 @@ public abstract class BaseActivity extends RxAppCompatActivity {
      * @return
      */
     public abstract int getLayoutId();
+
+    /*
+    * 数据的初始化
+    * */
+    public void beforeInitView(){}
 
     /**
      * 初始化toolbar

@@ -20,9 +20,9 @@
         </android.support.v7.widget.RecyclerView>
     </android.support.v4.widget.SwipeRefreshLayout>
     <RelativeLayout
-        android:layout_marginTop="24dp"
+        android:id="@+id/rBar"
+        android:background="@android:color/white"
         android:gravity="center_vertical"
-        android:minHeight="?attr/actionBarSize"
         android:layout_width="match_parent"
         android:layout_height="40dp">
         <TextView
@@ -30,6 +30,7 @@
             android:text="杭州"
             android:textColor="@android:color/white"
             android:paddingLeft="12dp"
+            android:textSize="16sp"
             android:gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="40dp" />

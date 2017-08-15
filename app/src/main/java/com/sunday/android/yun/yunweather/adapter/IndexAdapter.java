@@ -11,6 +11,8 @@ import android.widget.TextView;
 
 import com.sunday.android.yun.yunweather.R;
 import com.sunday.android.yun.yunweather.entity.Weather;
+import com.sunday.android.yun.yunweather.utils.DeviceUtils;
+import com.sunday.android.yun.yunweather.utils.TextUtils;
 
 import java.util.List;
 
@@ -110,10 +112,13 @@ public class IndexAdapter extends RecyclerView.Adapter {
         TextView tvNowHumidity;
         @BindView(R.id.tv_now_feel)
         TextView tvNowFeel;
-
+        @BindView(R.id.cMain)
+        ConstraintLayout cMain;
         public MyHeadHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+            TextUtils.setTypeface(mContext,tvNowTemp,"fonts/mi.ttf");
+            cMain.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, DeviceUtils.getDisplay(mContext).widthPixels));
         }
     }
 

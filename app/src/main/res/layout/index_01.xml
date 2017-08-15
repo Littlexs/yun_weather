@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
+    android:id="@+id/cMain"
     android:background="#71c5ec"
     android:layout_width="match_parent"
     android:layout_height="300dp">
@@ -11,30 +12,48 @@
         android:text="多云"
         android:textSize="20sp"
         android:textColor="@android:color/white"
+        android:layout_marginBottom="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toTopOf="@+id/tv_now_temp" />
+
     <TextView
         android:id="@+id/tv_now_temp"
-        android:text="30°"
-        android:textSize="50sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="40dp"
+        android:text="30"
         android:textColor="@android:color/white"
+        android:textSize="60sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"  />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="°"
+        app:layout_constraintTop_toTopOf="@+id/tv_now_temp"
+        app:layout_constraintStart_toEndOf="@+id/tv_now_temp"
+        android:textColor="@android:color/white"
+        android:textSize="40sp"  />
     <TextView
         android:id="@+id/tv_now_quality"
         android:text="优"
         android:textSize="14sp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/shap01"
         android:textColor="@android:color/white"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="2dp"
+        android:paddingTop="2dp"
+        android:gravity="center"
+        android:drawablePadding="6dp"
+        android:drawableLeft="@drawable/ic_nice_sky"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_now_temp" />

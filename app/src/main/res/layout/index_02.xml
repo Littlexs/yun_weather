@@ -3,23 +3,25 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
+    android:background="@android:color/white"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
     <View
         android:id="@+id/space"
-        android:background="@android:color/darker_gray"
+        android:background="#eee"
         android:layout_width="match_parent"
         android:layout_height="8dp"/>
     <TextView
         android:text="出行建议"
         android:id="@+id/tv_title"
         android:padding="10dp"
+        android:textColor="#333333"
         app:layout_constraintTop_toBottomOf="@+id/space"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
     <View
         android:id="@+id/h_line"
-        android:background="@android:color/darker_gray"
+        android:background="#eee"
         app:layout_constraintTop_toBottomOf="@+id/tv_title"
         android:layout_width="match_parent"
         android:layout_height="0.2dp"/>
