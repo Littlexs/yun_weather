@@ -64,8 +64,9 @@ public class IndexAdapter extends RecyclerView.Adapter {
             headHolder.tvNowHumidity.setText(String.format("相对湿度\n%s",nowBean.getHum()));
             headHolder.tvNowFeel.setText(String.format("体感温度\n%s°",nowBean.getFl()));
         } else if (position == 1) {
-            MyDayHolder dayHolder = (MyDayHolder) holder;
             List<Weather.HeWeather5Bean.DailyForecastBean> dailyForecastBeanList = heWeather5.get(0).getDaily_forecast();
+            MyDayHolder dayHolder = (MyDayHolder) holder;
+            dayHolder.lMain.removeAllViews();
             ConstraintLayout constraintLayout;
             int i = 0;
             for (Weather.HeWeather5Bean.DailyForecastBean bean : dailyForecastBeanList){
@@ -89,24 +90,54 @@ public class IndexAdapter extends RecyclerView.Adapter {
             contentHolder.tvTitle.setText("未来小时预报");
             contentHolder.lContent.removeAllViews();
             ConstraintLayout constraintLayout;
-            for (int i = 0;i<hourlyForecastBeanList.size();i++){
+            for (Weather.HeWeather5Bean.HourlyForecastBean bean : hourlyForecastBeanList){
                 constraintLayout = (ConstraintLayout) LayoutInflater.from(mContext).inflate(R.layout.index_out_item, null);
                 ViewGroup viewGroup = (ViewGroup) constraintLayout.getParent();
                 if (viewGroup!=null){viewGroup.removeAllViews();}
-
+                ImageView imageView = ButterKnife.findById(constraintLayout,R.id.imageView);
+                TextView day = ButterKnife.findById(constraintLayout,R.id.tv_day);
+                TextView simpleInfo = ButterKnife.findById(constraintLayout,R.id.tv_simple_info);
+                imageView.setImageResource(R.drawable.ic_sport);
+                day.setText(bean.getDate().substring(bean.getDate().length()-6,bean.getDate().length()));
+                simpleInfo.setText(String.format("%s | %s",bean.getCond().getTxt(),bean.getWind().getSc()));
                 contentHolder.lContent.addView(constraintLayout);
             }
 
         } else if (position == 3) {
+            Weather.HeWeather5Bean.SuggestionBean suggestionBean = heWeather5.get(0).getSuggestion();
             MyContentHolder contentHolder = (MyContentHolder) holder;
             contentHolder.tvTitle.setText("出行建议");
             contentHolder.lContent.removeAllViews();
-
             ConstraintLayout constraintLayout;
-            for (int i = 0;i<3;i++){
-                constraintLayout = (ConstraintLayout) LayoutInflater.from(mContext).inflate(R.layout.index_out_item, null);
+            for (int i = 0;i<4;i++){
+                constraintLayout = (ConstraintLayout) LayoutInflater.from(mContext).inflate(R.layout.index_suggest_item, null);
                 ViewGroup viewGroup = (ViewGroup) constraintLayout.getParent();
                 if (viewGroup!=null){viewGroup.removeAllViews();}
+                ImageView imageView = ButterKnife.findById(constraintLayout,R.id.imageView);
+                TextView day = ButterKnife.findById(constraintLayout,R.id.tv_day);
+                TextView simpleInfo = ButterKnife.findById(constraintLayout,R.id.tv_simple_info);
+                switch (i){
+                    case 0:
+                        imageView.setImageResource(R.drawable.ic_clothes);
+                        day.setText("穿衣 "+suggestionBean.getDrsg().getBrf());
+                        simpleInfo.setText(suggestionBean.getDrsg().getTxt());
+                        break;
+                    case 1:
+                        imageView.setImageResource(R.drawable.ic_sport);
+                        day.setText("户外 "+suggestionBean.getSport().getBrf());
+                        simpleInfo.setText(suggestionBean.getSport().getTxt());
+                        break;
+                    case 2:
+                        imageView.setImageResource(R.drawable.ic_feel);
+                        day.setText("舒适度 "+suggestionBean.getComf().getBrf());
+                        simpleInfo.setText(suggestionBean.getComf().getTxt());
+                        break;
+                    case 3:
+                        imageView.setImageResource(R.drawable.ic_car);
+                        day.setText("洗车 "+suggestionBean.getCw().getBrf());
+                        simpleInfo.setText(suggestionBean.getCw().getTxt());
+                        break;
+                }
                 contentHolder.lContent.addView(constraintLayout);
             }
         }
