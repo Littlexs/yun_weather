@@ -83,22 +83,24 @@ public class IndexAdapter extends RecyclerView.Adapter {
                 dayHolder.lMain.addView(constraintLayout);
                 i++;
             }
-
         } else if (position == 2) {
+            List<Weather.HeWeather5Bean.HourlyForecastBean> hourlyForecastBeanList =  heWeather5.get(0).getHourly_forecast();
             MyContentHolder contentHolder = (MyContentHolder) holder;
             contentHolder.tvTitle.setText("未来小时预报");
-
+            contentHolder.lContent.removeAllViews();
             ConstraintLayout constraintLayout;
-            for (int i = 0;i<3;i++){
+            for (int i = 0;i<hourlyForecastBeanList.size();i++){
                 constraintLayout = (ConstraintLayout) LayoutInflater.from(mContext).inflate(R.layout.index_out_item, null);
                 ViewGroup viewGroup = (ViewGroup) constraintLayout.getParent();
                 if (viewGroup!=null){viewGroup.removeAllViews();}
+
                 contentHolder.lContent.addView(constraintLayout);
             }
 
         } else if (position == 3) {
             MyContentHolder contentHolder = (MyContentHolder) holder;
             contentHolder.tvTitle.setText("出行建议");
+            contentHolder.lContent.removeAllViews();
 
             ConstraintLayout constraintLayout;
             for (int i = 0;i<3;i++){
