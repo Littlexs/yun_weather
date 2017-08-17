@@ -19,6 +19,7 @@ import com.sunday.android.yun.yunweather.entity.Weather;
 import com.sunday.android.yun.yunweather.http.ApiClient;
 import com.sunday.android.yun.yunweather.http.RxUtils;
 import com.sunday.android.yun.yunweather.utils.DeviceUtils;
+import com.sunday.android.yun.yunweather.utils.PixUtils;
 import com.sunday.android.yun.yunweather.utils.StatusBarUtil;
 import com.sunday.android.yun.yunweather.utils.ToastUtils;
 
@@ -47,14 +48,18 @@ public class MainActivity extends BaseActivity {
     SwipeRefreshLayout refreshLayout;
     @BindView(R.id.rBar)
     RelativeLayout relativeLayout;
+    @BindView(R.id.title)
+    TextView title;
 
     private IndexAdapter indexAdapter;
     private LinearLayoutManager layoutManager;
     private Weather weather;
+    private Weather.HeWeather5Bean.NowBean nowBean;
     private List<Weather.HeWeather5Bean> weather5BeanList = new ArrayList<>();
     private String NET_OK = "ok";
+    private String city = "杭州";
 
-    private int w, colorAccent, colorTrans;
+    private int w, colorAccent, colorTrans, statusBarHeight, barAndStatusHeight;
 
     @Override
     public int getLayoutId() {
@@ -66,24 +71,27 @@ public class MainActivity extends BaseActivity {
         w = DeviceUtils.getDisplay(mContext).widthPixels;
         colorAccent = Color.parseColor("#71c5ec");
         colorTrans = Color.TRANSPARENT;
+        statusBarHeight = StatusBarUtil.getStatusBarHeight(getApplicationContext());
+        barAndStatusHeight = PixUtils.dip2px(mContext, 40) + statusBarHeight;
     }
 
     @Override
     public void initViews(Bundle savedInstanceState) {
         RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) relativeLayout.getLayoutParams();
-        layoutParams.setMargins(0, StatusBarUtil.getStatusBarHeight(getApplicationContext()), 0, 0);
+        layoutParams.setMargins(0, statusBarHeight, 0, 0);
         relativeLayout.setBackgroundColor(colorAccent);
+        title.setLayoutParams(layoutParams);
         layoutManager = new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
         indexAdapter = new IndexAdapter(getApplicationContext(), weather5BeanList);
         recyclerView.setAdapter(indexAdapter);
         recyclerView.addOnScrollListener(onScrollListener);
-        refreshLayout.setOnRefreshListener(()->loadData());
+        refreshLayout.setOnRefreshListener(() -> loadData());
     }
 
     public void loadData() {
-        ApiClient.create().getMainInfo("杭州", ApiClient.APP_KEY)
-                .doOnSubscribe((disposable)->refreshLayout.setRefreshing(true))
+        ApiClient.create().getMainInfo(city, ApiClient.APP_KEY)
+                .doOnSubscribe((disposable) -> refreshLayout.setRefreshing(true))
                 .compose(RxUtils.schedulerTransformer(Schedulers.io()))
                 .subscribe(weather1 -> showData(weather1),
                         throwable -> {
@@ -94,6 +102,7 @@ public class MainActivity extends BaseActivity {
 
     public void showData(Weather weather) {
         this.weather = weather;
+        this.nowBean = weather.getHeWeather5().get(0).getNow();
         refreshLayout.setRefreshing(false);
         weather5BeanList.clear();
         weather5BeanList.addAll(weather.getHeWeather5());
@@ -115,10 +124,14 @@ public class MainActivity extends BaseActivity {
         public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
             super.onScrolled(recyclerView, dx, dy);
             y += dy;
-            if (y > w - 110) {
+            if (y > w - barAndStatusHeight) {
                 StatusBarUtil.setColor(MainActivity.this, colorAccent, 0);
                 relativeLayout.setBackgroundColor(colorAccent);
+                if (nowBean!=null){
+                    title.setText(nowBean.getTmp()+"° "+nowBean.getCond().getTxt());
+                }
             } else {
+                title.setText("");
                 transStatus();
                 relativeLayout.setBackgroundColor(colorTrans);
             }

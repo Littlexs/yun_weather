@@ -21,7 +21,7 @@
 
     <TextView
         android:id="@+id/tv_now_temp"
-        android:layout_width="wrap_content"
+        android:layout_width="69dp"
         android:layout_height="wrap_content"
         android:text="30"
         android:textColor="@android:color/white"

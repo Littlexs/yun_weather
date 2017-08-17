@@ -25,6 +25,7 @@ import retrofit2.Retrofit;
 public class ApiClient {
 
     private static String BASE_URL = "https://free-api.heweather.com/";//和风天气API ： https://www.heweather.com/
+    public static String ICON_URL = "https://cdn.heweather.com/cond_icon/";
     public Api api;
     private static Retrofit mApi = null;
     private static OkHttpClient mOkHttpClient;
