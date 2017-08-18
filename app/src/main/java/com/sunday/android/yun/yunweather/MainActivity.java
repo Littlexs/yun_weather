@@ -99,6 +99,7 @@ public class MainActivity extends BaseActivity implements PopupMenu.OnMenuItemCl
         ApiClient.create().getMainInfo(city, ApiClient.APP_KEY)
                 .doOnSubscribe((disposable) -> refreshLayout.setRefreshing(true))
                 .compose(RxUtils.schedulerTransformer(Schedulers.io()))
+                .compose(bindToLifecycle())
                 .subscribe(weather1 -> showData(weather1),
                         throwable -> {
                             ToastUtils.showToast(getApplicationContext(), "网络异常");

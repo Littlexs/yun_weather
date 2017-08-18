@@ -22,8 +22,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".model.SettingActivity" />
-        <activity android:name=".model.CityManageActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".model.CityManageActivity"/>
+        <activity android:name=".model.SelectCityActivity" />
     </application>
 
 </manifest>
