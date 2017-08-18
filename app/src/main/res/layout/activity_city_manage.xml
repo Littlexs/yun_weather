@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true"
+    tools:context="com.sunday.android.yun.yunweather.model.CityManageActivity">
+    <include android:id="@+id/header" layout="@layout/common_header_layout"/>
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/refreshLayout"
+        android:layout_below="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </android.support.v7.widget.RecyclerView>
+    </android.support.v4.widget.SwipeRefreshLayout>
+    <ImageView
+        android:id="@+id/imgAddCity"
+        android:layout_width="46dp"
+        android:layout_height="46dp"
+        android:layout_margin="16dp"
+        app:srcCompat="@drawable/ic_add_54dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"/>
+</RelativeLayout>

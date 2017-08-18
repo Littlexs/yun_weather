@@ -37,7 +37,6 @@ public abstract class BaseActivity extends RxAppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getLayoutId());
-        transStatus();
         bind = ButterKnife.bind(this);
         mContext = this;
         MobclickAgent.openActivityDurationTrack(false);

@@ -6,7 +6,6 @@ import android.widget.TextView;
 
 /**
  * Created by yun_sheng on 2017/8/17.
- *   T  泛型更好些
  */
 
 public interface IViewHelper {

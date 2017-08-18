@@ -7,9 +7,12 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -18,6 +21,8 @@ import com.sunday.android.yun.yunweather.common.BaseActivity;
 import com.sunday.android.yun.yunweather.entity.Weather;
 import com.sunday.android.yun.yunweather.http.ApiClient;
 import com.sunday.android.yun.yunweather.http.RxUtils;
+import com.sunday.android.yun.yunweather.model.CityManageActivity;
+import com.sunday.android.yun.yunweather.model.SettingActivity;
 import com.sunday.android.yun.yunweather.utils.DeviceUtils;
 import com.sunday.android.yun.yunweather.utils.PixUtils;
 import com.sunday.android.yun.yunweather.utils.StatusBarUtil;
@@ -36,7 +41,7 @@ import io.reactivex.schedulers.Schedulers;
 /*
 * 首页
 * */
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements PopupMenu.OnMenuItemClickListener {
 
     @BindView(R.id.tv_city)
     TextView tvCity;
@@ -68,6 +73,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void initToolBar() {
+        transStatus();
         w = DeviceUtils.getDisplay(mContext).widthPixels;
         colorAccent = Color.parseColor("#71c5ec");
         colorTrans = Color.TRANSPARENT;
@@ -114,7 +120,11 @@ public class MainActivity extends BaseActivity {
 
     @OnClick(R.id.img_more)
     public void onViewClicked() {
-        ToastUtils.showToast(getApplicationContext(), "more");
+        PopupMenu popupMenu = new PopupMenu(mContext,imgMore);
+        MenuInflater menuInflater = popupMenu.getMenuInflater();
+        menuInflater.inflate(R.menu.menu_main,popupMenu.getMenu());
+        popupMenu.setOnMenuItemClickListener(this);
+        popupMenu.show();
     }
 
     private int y = 0;
@@ -125,7 +135,7 @@ public class MainActivity extends BaseActivity {
             super.onScrolled(recyclerView, dx, dy);
             y += dy;
             if (y > w - barAndStatusHeight) {
-                StatusBarUtil.setColor(MainActivity.this, colorAccent, 0);
+                StatusBarUtil.setColor(MainActivity.this,colorAccent,0);
                 relativeLayout.setBackgroundColor(colorAccent);
                 if (nowBean!=null){
                     title.setText(nowBean.getTmp()+"° "+nowBean.getCond().getTxt());
@@ -137,4 +147,17 @@ public class MainActivity extends BaseActivity {
             }
         }
     };
+
+    @Override
+    public boolean onMenuItemClick(MenuItem menuItem) {
+        switch (menuItem.getItemId()){
+            case R.id.action_city:
+                openActivity(CityManageActivity.class);
+                break;
+            case R.id.action_setting:
+                openActivity(SettingActivity.class);
+                break;
+        }
+        return false;
+    }
 }

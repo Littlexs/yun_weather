@@ -2,101 +2,107 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:id="@+id/cMain"
-    android:background="#71c5ec"
     android:layout_width="match_parent"
-    android:layout_height="300dp">
+    android:layout_height="300dp"
+    android:background="#71c5ec"
+    android:orientation="vertical">
+
     <TextView
         android:id="@+id/tv_now_sky"
-        android:text="多云"
-        android:textSize="20sp"
-        android:textColor="@android:color/white"
-        android:layout_marginBottom="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/tv_now_temp" />
+        android:layout_marginBottom="10dp"
+        android:text="多云"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/tv_now_temp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/tv_now_temp"
         android:layout_width="69dp"
         android:layout_height="wrap_content"
         android:text="30"
-        android:textColor="@android:color/white"
+        android:textColor="@color/white"
         android:textSize="60sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="°"
-        app:layout_constraintTop_toTopOf="@+id/tv_now_temp"
+        android:textColor="@color/white"
+        android:textSize="40sp"
         app:layout_constraintStart_toEndOf="@+id/tv_now_temp"
-        android:textColor="@android:color/white"
-        android:textSize="40sp"  />
+        app:layout_constraintTop_toTopOf="@+id/tv_now_temp" />
+
     <TextView
         android:id="@+id/tv_now_quality"
-        android:text="优"
-        android:textSize="14sp"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/shap01"
-        android:textColor="@android:color/white"
         android:layout_width="wrap_content"
         android:layout_height="20dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/shap01"
+        android:drawableStart="@drawable/ic_nice_sky"
+        android:drawablePadding="6dp"
+        android:gravity="center"
+        android:paddingBottom="2dp"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        android:paddingBottom="2dp"
         android:paddingTop="2dp"
-        android:gravity="center"
-        android:drawablePadding="6dp"
-        android:drawableLeft="@drawable/ic_nice_sky"
+        android:text="优"
+        android:textColor="@color/white"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_now_temp"
-        tools:layout_editor_absoluteY="204dp" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_now_temp" />
+
     <LinearLayout
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:paddingBottom="10dp"
-        android:dividerPadding="3dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:divider="@drawable/v_line"
+        android:dividerPadding="3dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingBottom="10dp"
         android:showDividers="middle"
         android:weightSum="3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
         <TextView
             android:id="@+id/tv_now_wind"
-            android:text="东北风\n3级"
-            android:lineSpacingExtra="8dp"
-            android:gravity="center"
-            android:textColor="@android:color/white"
             android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_height="wrap_content" />
+            android:gravity="center"
+            android:lineSpacingExtra="8dp"
+            android:text="东北风\n3级"
+            android:textColor="@color/white" />
+
         <TextView
             android:id="@+id/tv_now_humidity"
-            android:text="湿度\n30°"
-            android:lineSpacingExtra="8dp"
-            android:gravity="center"
-            android:textColor="@android:color/white"
             android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_height="wrap_content" />
+            android:gravity="center"
+            android:lineSpacingExtra="8dp"
+            android:text="湿度\n30°"
+            android:textColor="@color/white" />
+
         <TextView
             android:id="@+id/tv_now_feel"
-            android:text="体感温度\n30°"
-            android:lineSpacingExtra="8dp"
-            android:gravity="center"
-            android:textColor="@android:color/white"
             android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_height="wrap_content" />
+            android:gravity="center"
+            android:lineSpacingExtra="8dp"
+            android:text="体感温度\n30°"
+            android:textColor="@color/white" />
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>
