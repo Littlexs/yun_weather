@@ -92,7 +92,7 @@ public class MainActivity extends BaseActivity implements PopupMenu.OnMenuItemCl
         indexAdapter = new IndexAdapter(getApplicationContext(), weather5BeanList);
         recyclerView.setAdapter(indexAdapter);
         recyclerView.addOnScrollListener(onScrollListener);
-        refreshLayout.setOnRefreshListener(() -> loadData());
+        refreshLayout.setOnRefreshListener(this::loadData);
     }
 
     public void loadData() {
@@ -100,7 +100,7 @@ public class MainActivity extends BaseActivity implements PopupMenu.OnMenuItemCl
                 .doOnSubscribe((disposable) -> refreshLayout.setRefreshing(true))
                 .compose(RxUtils.schedulerTransformer(Schedulers.io()))
                 .compose(bindToLifecycle())
-                .subscribe(weather1 -> showData(weather1),
+                .subscribe(this::showData,
                         throwable -> {
                             ToastUtils.showToast(getApplicationContext(), "网络异常");
                             refreshLayout.setRefreshing(false);

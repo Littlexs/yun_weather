@@ -47,4 +47,5 @@ dependencies {
     compile 'com.trello.rxlifecycle2:rxlifecycle:2.1.0'
     compile 'com.trello.rxlifecycle2:rxlifecycle-components:2.1.0'
     compile 'com.squareup.picasso:picasso:2.5.2'
+    testCompile "org.mockito:mockito-core:2.+"
 }
