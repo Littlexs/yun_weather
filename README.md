@@ -1,5 +1,5 @@
 # yun_weather
-基于rxjava开发的天气app，适合学习
+基于rxjava开发的天气app，适合学习，包括Dagger2
 
 Dagger2学习链接
 
