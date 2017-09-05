@@ -15,14 +15,17 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".model.SettingActivity" />
         <activity android:name=".model.CityManageActivity" />
         <activity android:name=".model.SelectCityActivity" />
-        <activity android:name=".dagger_test.TestActivity">
+        <activity android:name=".dagger_test.TestActivity"></activity>
+        <activity android:name=".dagger_test.type_inject_test.Test1Activity">
 
         </activity>
-        <activity android:name=".dagger_test.type_inject_test.Test1Activity">
+        <activity
+            android:name=".customview_test.CustomViewTestActivity"
+            android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

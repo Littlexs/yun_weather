@@ -11,6 +11,7 @@ public class AClass {
     private String str1;
     private String str2;
 
+    @Inject
     public AClass() {
         this.str1 = "str1";
         this.str2 = "str2";
