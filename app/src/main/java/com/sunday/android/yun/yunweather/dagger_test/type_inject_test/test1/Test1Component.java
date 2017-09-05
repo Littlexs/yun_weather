@@ -7,7 +7,7 @@ import dagger.Component;
 /**
  * Created by ASUS001 on 2017/9/4.
  */
-@Component
+@Component(modules = Test1Module.class)
 public interface Test1Component {
     void inject(Test1Activity testActivity);
 }
