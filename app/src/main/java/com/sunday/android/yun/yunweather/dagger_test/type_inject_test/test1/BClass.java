@@ -10,6 +10,10 @@ public class BClass {
     private String str1;
     private String str2;
 
+    @Inject
+    public BClass(String str1){
+        this.str1 = str1;
+    }
 
     public String getStr1() {
         return str1;
