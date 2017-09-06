@@ -19,17 +19,26 @@
         <activity android:name=".model.SettingActivity" />
         <activity android:name=".model.CityManageActivity" />
         <activity android:name=".model.SelectCityActivity" />
-        <activity android:name=".dagger_test.TestActivity"></activity>
+        <activity android:name=".dagger_test.TestActivity" />
         <activity android:name=".dagger_test.type_inject_test.Test1Activity">
+
+        </activity>
+        <activity
+            android:name=".customview_test.CustomViewTestActivity"
+            android:theme="@style/AppTheme"></activity>
+        <activity
+            android:name=".customview_test.ScrollingActivity"
+            android:label="@string/title_activity_scrolling"
+            android:theme="@style/ScrollingActivityTheme">
+
+        </activity>
+        <activity android:name=".customview_test.CoordinatorLayoutActivity"
+            android:theme="@style/ScrollingActivityTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity
-            android:name=".customview_test.CustomViewTestActivity"
-            android:theme="@style/AppTheme">
 
         </activity>
     </application>
