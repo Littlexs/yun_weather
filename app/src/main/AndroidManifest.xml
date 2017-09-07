@@ -34,11 +34,17 @@
 
         </activity>
         <activity android:name=".dagger_test.http_test.HttpTest1Activity">
+
+        </activity>
+        <activity android:name=".dagger_test.leak_test.LeakMainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".dagger_test.leak_test.LeakTest1Activity">
+
         </activity>
     </application>
 
