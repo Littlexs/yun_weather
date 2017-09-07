@@ -59,6 +59,7 @@ public class Test1Activity extends AppCompatActivity {
         setContentView(R.layout.activity_test1);
         ButterKnife.bind(this);
 
+
         DaggerTest1Component.builder()
                 .test1Module(new Test1Module(new AClass()))
                 .test2Module(new Test2Module(new BClass("test b")))

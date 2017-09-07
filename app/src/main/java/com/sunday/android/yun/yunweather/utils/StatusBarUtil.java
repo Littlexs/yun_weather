@@ -75,7 +75,7 @@ public class StatusBarUtil {
      * 小米4C 6.0.1无效
      */
     private static SystemBarTintManager tintManager;
-//    public static void setStatusBarColor(Activity activity, int colorId) {
+//    public static void setStatusBarColor(ActivityComponent activity, int colorId) {
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 //            Window window = activity.getWindow();
 //            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);

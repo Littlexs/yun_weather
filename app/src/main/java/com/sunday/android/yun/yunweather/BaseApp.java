@@ -3,6 +3,10 @@ package com.sunday.android.yun.yunweather;
 import android.app.Application;
 
 import com.squareup.leakcanary.LeakCanary;
+import com.sunday.android.yun.yunweather.dagger_test.http_test.AppComponent;
+import com.sunday.android.yun.yunweather.dagger_test.http_test.AppModule;
+import com.sunday.android.yun.yunweather.dagger_test.http_test.DaggerAppComponent;
+import com.sunday.android.yun.yunweather.dagger_test.http_test.HttpModule;
 
 /**
  *               ii.                                         ;9ABH,
@@ -51,11 +55,23 @@ import com.squareup.leakcanary.LeakCanary;
  */
 public class BaseApp extends Application {
 
+    AppComponent appComponent;
+
     @Override
     public void onCreate() {
         super.onCreate();
         if (!LeakCanary.isInAnalyzerProcess(this)){
             LeakCanary.install(this);
         }
+        appComponent = DaggerAppComponent
+                .builder()
+                .appModule(new AppModule(this))
+                .httpModule(new HttpModule())
+                .build();
     }
+
+    public AppComponent getAppComponent(){
+        return appComponent;
+    }
+
 }
