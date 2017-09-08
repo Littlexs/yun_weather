@@ -2,10 +2,15 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <com.sunday.android.yun.yunweather.customview_test.BezierTestView
-        android:id="@+id/bezierTestView"
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content">
+        <com.sunday.android.yun.yunweather.customview_test.TouchPointView
+            android:layout_width="80dp"
+            android:layout_height="80dp" />
+    </LinearLayout>
 </LinearLayout>

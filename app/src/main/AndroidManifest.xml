@@ -23,7 +23,13 @@
         <activity android:name=".dagger_test.type_inject_test.Test1Activity"></activity>
         <activity
             android:name=".customview_test.CustomViewTestActivity"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".customview_test.ScrollingActivity"
             android:label="@string/title_activity_scrolling"
@@ -37,11 +43,7 @@
 
         </activity>
         <activity android:name=".dagger_test.leak_test.LeakMainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".dagger_test.leak_test.LeakTest1Activity">
 
